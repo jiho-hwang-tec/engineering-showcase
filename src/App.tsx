@@ -26,7 +26,6 @@ import {
   resetAllStorage,
 } from './utils/storage';
 import { fetchPortfolioData, syncAllPortfolio } from './utils/api';
-import { initialSkills } from './data/mockData';
 import { downloadResumePdf } from './utils/resumeDownload';
 
 import { Navbar } from './components/Navbar';

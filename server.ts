@@ -39,8 +39,49 @@ function getStoredData() {
 
 const MOCK_DATA_FILE = path.join(process.cwd(), 'src', 'data', 'mockData.ts');
 
-function saveStoredData(data: any) {
+function sanitizeBase64ToFiles(obj: any): any {
+  if (!obj || typeof obj !== 'object') return obj;
+  if (Array.isArray(obj)) {
+    return obj.map(item => sanitizeBase64ToFiles(item));
+  }
+  const result: any = {};
+  for (const key of Object.keys(obj)) {
+    const val = obj[key];
+    if (typeof val === 'string' && val.startsWith('data:')) {
+      const match = val.match(/^data:([a-zA-Z0-9\/\-+.]+);base64,(.+)$/s);
+      if (match) {
+        const mime = match[1];
+        const base64Data = match[2];
+        let ext = 'bin';
+        if (mime.includes('pdf')) ext = 'pdf';
+        else if (mime.includes('jpeg') || mime.includes('jpg')) ext = 'jpg';
+        else if (mime.includes('png')) ext = 'png';
+        else if (mime.includes('webp')) ext = 'webp';
+        else if (mime.includes('svg')) ext = 'svg';
+
+        const filename = `${key}_${Date.now()}_${Math.floor(Math.random() * 1000)}.${ext}`;
+        const filePath = path.join(UPLOAD_DIR, filename);
+        try {
+          fs.writeFileSync(filePath, Buffer.from(base64Data, 'base64'));
+          result[key] = `/uploads/${filename}`;
+          continue;
+        } catch (e) {
+          console.error('Error extracting base64 asset:', e);
+        }
+      }
+    }
+    if (typeof val === 'object' && val !== null) {
+      result[key] = sanitizeBase64ToFiles(val);
+    } else {
+      result[key] = val;
+    }
+  }
+  return result;
+}
+
+function saveStoredData(rawData: any) {
   try {
+    const data = sanitizeBase64ToFiles(rawData);
     fs.writeFileSync(DATA_FILE, JSON.stringify(data, null, 2), 'utf-8');
     try {
       if (!fs.existsSync(PUBLIC_DATA_DIR)) {

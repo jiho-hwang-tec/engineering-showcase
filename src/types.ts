@@ -28,6 +28,8 @@ export interface ProjectSectionItem {
   imageAlign?: 'left' | 'center' | 'right';
   images?: ProjectImageItem[];
   tags?: string[];
+  subtitles?: any;
+  [key: string]: any;
 }
 
 export interface Project {
@@ -50,14 +52,14 @@ export interface Project {
   videoUrl?: string;
 
   sections?: {
-    [key: string]: ProjectSectionItem;
-    overview: ProjectSectionItem;
-    architecture: ProjectSectionItem;
-    hardware: ProjectSectionItem;
-    firmware: ProjectSectionItem;
-    aiModel: ProjectSectionItem;
-    metrics: ProjectSectionItem;
-    troubleshooting: ProjectSectionItem;
+    [key: string]: any;
+    overview?: ProjectSectionItem;
+    architecture?: ProjectSectionItem;
+    hardware?: ProjectSectionItem;
+    firmware?: ProjectSectionItem;
+    aiModel?: ProjectSectionItem;
+    metrics?: ProjectSectionItem;
+    troubleshooting?: ProjectSectionItem;
   };
 
   // Legacy fields kept optional for backward compatibility
@@ -177,7 +179,7 @@ export interface UserProfile {
   homeSummaryTitle?: string;
   homeSummaryDesc?: string;
   homeLabRole?: string;
-
+  homeCertifications?: string;
 
   // About Me Section Customizations
   aboutTag?: string;
