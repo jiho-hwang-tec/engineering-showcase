@@ -14,7 +14,7 @@
     "university": "숙명여자대학교 전자공학전공",
     "major": "전자공학전공 ",
     "gpa": "3.57 / 4.5",
-    "photoUrl": "/uploads/photoUrl_1_1787582407046.jpg",
+    "photoUrl": "https://cdn.phototourl.com/free/2026-08-24-6230e36d-67fc-4104-bf9f-dd85b86b3090.png",
     "homeCatchphrase": "전자공학 기초 지식과 1년의 학부연구생 경험을 바탕으로 빠르게 배우고 성장하는 준비된 신입 개발자입니다.",
     "homeBadges": [
       "Python",
@@ -704,5 +704,5 @@
       "read": false
     }
   ],
-  "updatedAt": "2026-08-24T13:18:22.016Z"
+  "updatedAt": "2026-08-24T14:48:26.893Z"
 }
