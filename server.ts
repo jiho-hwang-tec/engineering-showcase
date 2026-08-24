@@ -37,6 +37,8 @@ function getStoredData() {
   return null;
 }
 
+const MOCK_DATA_FILE = path.join(process.cwd(), 'src', 'data', 'mockData.ts');
+
 function saveStoredData(data: any) {
   try {
     fs.writeFileSync(DATA_FILE, JSON.stringify(data, null, 2), 'utf-8');
@@ -48,6 +50,27 @@ function saveStoredData(data: any) {
     } catch (e) {
       console.warn('Could not write to public data directory:', e);
     }
+
+    try {
+      const mockDataContent = `import { UserProfile, Project, ResearchItem, GalleryItem, PaperItem, BlogPost } from '../types';
+
+export const initialProfile: UserProfile = ${JSON.stringify(data.profile || {}, null, 2)};
+
+export const initialProjects: Project[] = ${JSON.stringify(data.projects || [], null, 2)};
+
+export const initialResearch: ResearchItem[] = ${JSON.stringify(data.research || [], null, 2)};
+
+export const initialGallery: GalleryItem[] = ${JSON.stringify(data.gallery || [], null, 2)};
+
+export const initialPapers: PaperItem[] = ${JSON.stringify(data.papers || [], null, 2)};
+
+export const initialBlogPosts: BlogPost[] = ${JSON.stringify(data.blogs || [], null, 2)};
+`;
+      fs.writeFileSync(MOCK_DATA_FILE, mockDataContent, 'utf-8');
+    } catch (e) {
+      console.warn('Could not write to mockData.ts:', e);
+    }
+
     return true;
   } catch (err) {
     console.error('Error writing to data file:', err);
