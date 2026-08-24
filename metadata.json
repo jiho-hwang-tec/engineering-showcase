@@ -1,0 +1,6 @@
+{
+  "name": "황지호 | Engineering Showcase",
+  "description": "Electronics & AI/ML Engineer Showcase - Computer Vision, Wafermap Generative AI, Semiconductor Defect Classification, FPGA & Embedded Systems",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
